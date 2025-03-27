@@ -1,7 +1,7 @@
-package edu.levytskyi.lab1cloud.controller; // Заміни на свій пакет
+package edu.levytskyi.lab1cloud.controller;
 
-import edu.levytskyi.lab1cloud.model.Item; // Заміни на свій пакет
-import edu.levytskyi.lab1cloud.repository.ItemRepository; // Заміни на свій пакет
+import edu.levytskyi.lab1cloud.model.Item;
+import edu.levytskyi.lab1cloud.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController // Залишаємо RestController, бо він вже є
+@RestController
+@RequestMapping("/items")
 public class ItemController {
 
     @Autowired
     private ItemRepository itemRepository;
 
     // CREATE: Створення нового Item
-    @PostMapping("/items")
+    @PostMapping
     public ResponseEntity<Item> createItem(@RequestBody Item item) {
         try {
             Item newItem = itemRepository.save(new Item(item.getName(), item.getDescription()));
@@ -28,7 +29,7 @@ public class ItemController {
     }
 
     // READ ALL: Отримання всіх Items
-    @GetMapping("/items")
+    @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {
         try {
             List<Item> items = itemRepository.findAll();
@@ -42,7 +43,7 @@ public class ItemController {
     }
 
     //Отримання Item за ID
-    @GetMapping("/items/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Item> getItemById(@PathVariable("id") long id) {
         Optional<Item> itemData = itemRepository.findById(id);
 
@@ -52,7 +53,7 @@ public class ItemController {
     }
 
     //Оновлення Item за ID
-    @PutMapping("/items/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable("id") long id, @RequestBody Item item) {
         Optional<Item> itemData = itemRepository.findById(id);
 
@@ -67,7 +68,7 @@ public class ItemController {
     }
 
     //Видалення Item за ID
-    @DeleteMapping("/items/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteItem(@PathVariable("id") long id) {
         try {
             itemRepository.deleteById(id);
@@ -78,7 +79,7 @@ public class ItemController {
     }
 
     // DELETE ALL: Ви думаєте, що весь світ має підкорятися вам лише тому, що маєте атомну бомбу? Насправді ви слабкі, ви боїтеся навіть власної сили.
-    @DeleteMapping("/items")
+    @DeleteMapping("")
     public ResponseEntity<HttpStatus> deleteAllItems() {
         try {
             itemRepository.deleteAll();
