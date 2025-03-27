@@ -23,7 +23,6 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 # Копіюємо зібраний JAR-файл з першого етапу (builder)
-# !!! ВАЖЛИВО: Переконайся, що назва JAR-файлу тут ВІДПОВІДАЄ тій, що генерується Maven !!!
 COPY --from=builder /app/target/Lab1-cloud-0.0.1-SNAPSHOT.jar app.jar
 
 # Вказуємо порт, який слухає Spring Boot (за замовчуванням 8080)
