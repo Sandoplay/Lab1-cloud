@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: postgres
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: postgres 
+  template:
+    metadata:
+      labels:
+        app: postgres 
+    spec:
+      containers:
+        - name: postgres 
+          image: postgres:13-alpine 
+                                    
+          ports:
+            - containerPort: 5432 
+          env: 
+            - name: POSTGRES_DB 
+              value: labdata_nou4 
+            - name: POSTGRES_USER 
+              value: labuser 
+            - name: POSTGRES_PASSWORD # Пароль для користувача
+              value: comeflywi 
+          volumeMounts: # Монтуємо наш PVC всередину контейнера
+            - name: postgres-storage # Ім'я цього volume mount
+              mountPath: /var/lib/postgresql/data # Стандартний шлях, де PostgreSQL зберігає дані
+      volumes: #
+        - name: postgres-storage 
+          persistentVolumeClaim:
+            claimName: postgres-pvc 

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab1-cloud-app-deployment
+  labels:
+    app: lab1-cloud-app 
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: lab1-cloud-app 
+  template:
+    metadata:
+      labels:
+        app: lab1-cloud-app 
+    spec:
+      containers:
+        - name: lab1-cloud-container
+          image: lab1-cloud-k8s:latest 
+          imagePullPolicy: IfNotPresent
+                                       
+          ports:
+            - containerPort: 8080 
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/labdata_nou4 
+            - name: SPRING_DATASOURCE_USERNAME
+              value: labuser 
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: comeflywi 
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update

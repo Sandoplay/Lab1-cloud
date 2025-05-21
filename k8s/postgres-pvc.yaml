@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc # Ім'я нашого PVC
+spec:
+  accessModes:
+    - ReadWriteOnce # Означає, що том може бути примонтований для читання/запису одним вузлом
+  resources:
+    requests:
+      storage: 1Gi # Запитуємо 1 Гігабайт сховища. Для Free Tier Render було 1GB, це схоже.

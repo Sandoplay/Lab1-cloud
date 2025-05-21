@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab1-cloud-app-service
+  labels:
+    app: lab1-cloud-app 
+spec:
+  type: NodePort 
+  ports:
+    - port: 8080 
+      targetPort: 8080 
+        
+  selector:
+    app: lab1-cloud-app
